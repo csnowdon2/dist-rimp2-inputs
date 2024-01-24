@@ -123,6 +123,7 @@ json encode_topology(std::vector<Fragment> fragments) {
 
 int main(int argc, char *argv[]) {
   std::string filename(argv[1]);
+  std::cout << "Opening file " << filename << std::endl;
   std::ifstream f(filename);
   json input = json::parse(f);
 
@@ -131,7 +132,9 @@ int main(int argc, char *argv[]) {
   std::vector<Fragment> fragments = parse_fragments(input);
   output["topology"] = encode_topology(fragments);
 
-  std::ofstream of("output-" + filename);
+  std::string ofilename = "output-" + filename;
+  std::ofstream of(ofilename);
+  std::cout << "Writing to file " << ofilename << std::endl;
   of << output.dump(4) << std::endl;
   return 0;
 }
